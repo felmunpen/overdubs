@@ -5,8 +5,7 @@
     <title>
         @yield('titulo')
     </title>
-    <!-- <link rel="stylesheet" href="{{ asset('css/style.css') }}" /> -->
-    <link rel="stylesheet" href="/public/css/style.css" />
+    <link rel="stylesheet" href="https://overdubs.koyeb.app/public/css/style.css" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
