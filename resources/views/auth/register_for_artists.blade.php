@@ -42,8 +42,8 @@
             <div>
                 <label for=" gender">If you want, select your gender:</label><br>
                 <select name="gender" id="gender" class="input_text" style="width: 60%;">
-                    <option value="Female">Female</option>
-                    <option value="Male">Male</option>
+                    <option value="Woman">Woman</option>
+                    <option value="Man">Man</option>
                     <option value="Other">Other</option>
                 </select>
             </div>

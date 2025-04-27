@@ -26,16 +26,9 @@ class ListController extends Controller
         if ($request->post('list_pic')) {
             $list_pic = $request->post('list_pic');
         } else {
-            $list_pic = 'https://isobarscience.com/wp-content/uploads/2020/09/default-profile-picture1.jpg';
+            $list_pic = 'https://static.vecteezy.com/system/resources/previews/049/624/353/non_2x/party-playlist-icon-design-vector.jpg';
         }
 
-        // $list_name = $_POST['list_name'];
-        // $list_pic = $_POST['list_pic'];
-        // if ($_POST['list_pic']) {
-        //     $list_pic = $_POST['list_pic'];
-        // } else {
-        //     $list_pic = 'https://isobarscience.com/wp-content/uploads/2020/09/default-profile-picture1.jpg';
-        // }
         DB::table('lists')->insert(['id' => NULL, 'user_id' => $user_id, 'name' => $list_name, 'list_pic' => $list_pic]);
 
         return redirect()->back();

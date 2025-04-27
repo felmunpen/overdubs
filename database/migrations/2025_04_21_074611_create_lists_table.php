@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->bigInteger('id', true);
             $table->bigInteger('user_id')->index('user_id');
             $table->string('name', 100)->nullable();
-            $table->string('list_pic', 500)->nullable()->default('https://today.emerson.edu/wp-content/uploads/2020/12/Playlist-Icon-original_1208935387-768x768-1.jpg');
+            $table->string('list_pic', 500)->nullable()->default('https://static.vecteezy.com/system/resources/previews/049/624/353/non_2x/party-playlist-icon-design-vector.jpg');
         });
     }
 

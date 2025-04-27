@@ -112,8 +112,8 @@ class AdminController extends Controller
         $string_users_country_gender = array();
         foreach ($users_by_country as $iterator) {
             $n = $iterator->user_count;
-            $females = count(DB::table('users')->where('country', '=', $iterator->country)->where('gender', '=', 'Female')->get());
-            $males = count(DB::table('users')->where('country', '=', $iterator->country)->where('gender', '=', 'Male')->get());
+            $females = count(DB::table('users')->where('country', '=', $iterator->country)->where('gender', '=', 'Woman')->get());
+            $males = count(DB::table('users')->where('country', '=', $iterator->country)->where('gender', '=', 'Man')->get());
             $others = count(DB::table('users')->where('country', '=', $iterator->country)->where('gender', '=', 'Other')->get());
             $string_users_country_gender[] = number_format(($females / $n * 100), 0) . "% females, " . number_format(($males / $n * 100), 0) . "% males, " . number_format(($others / $n * 100), 0) . "% other. <br>";
 
@@ -145,8 +145,8 @@ class AdminController extends Controller
         $avg_list_length = intval($avg_list_length / count($lists));
         $reviews = DB::table('reviews')->get();
         $reviews_avg_rating = DB::table('reviews')->avg('rating');
-        $avg_rating_females = DB::table('reviews')->join('users', 'users.id', '=', 'reviews.user_id')->where('users.gender', '=', 'Female')->avg('rating');
-        $avg_rating_males = DB::table('reviews')->join('users', 'users.id', '=', 'reviews.user_id')->where('users.gender', '=', 'Male')->avg('rating');
+        $avg_rating_females = DB::table('reviews')->join('users', 'users.id', '=', 'reviews.user_id')->where('users.gender', '=', 'Woman')->avg('rating');
+        $avg_rating_males = DB::table('reviews')->join('users', 'users.id', '=', 'reviews.user_id')->where('users.gender', '=', 'Man')->avg('rating');
         $avg_rating_others = DB::table('reviews')->join('users', 'users.id', '=', 'reviews.user_id')->where('users.gender', '=', 'Other')->avg('rating');
         $string_avg_rating_gender = "Average rating by females: " . number_format($avg_rating_females, 0) . ".<br>" . "Average rating by males: " . number_format($avg_rating_males, 0) . ".<br>" . "Average rating by others: " . number_format($avg_rating_others, 0) . ".<br>";
         $genres = DB::table('genres')->select(DB::raw('count(id) as genre_count, name'))->groupBy('name')->orderBy('genre_count', 'DESC')->limit(5)->get();

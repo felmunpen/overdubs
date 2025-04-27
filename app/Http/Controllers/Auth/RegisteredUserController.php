@@ -44,7 +44,7 @@ class RegisteredUserController extends Controller
             /*****/
             'usertype' => ['required', 'string', 'in:Admin,Artist,User'],
             'year' => ['nullable', 'integer'],
-            'gender' => ['required', 'string', 'in:Female,Male,Other'],
+            'gender' => ['required', 'string', 'in:Woman,Man,Other'],
             'profile_pic' => ['nullable', 'string', 'max:300'],
             'country' => ['nullable', 'string', 'max:100']
         ]);

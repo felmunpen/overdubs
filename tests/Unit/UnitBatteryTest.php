@@ -37,7 +37,7 @@ class UnitBatteryTest extends TestCase
 
             'usertype' => 'User',
             'year' => '2000',
-            'gender' => 'Female',
+            'gender' => 'Woman',
             'profile_pic' => 'https://static.vecteezy.com/system/resources/previews/021/578/906/non_2x/positive-face-woman-upper-body-icon-illustration-vector.jpg',
             'country' => 'Spain'
         ]);
@@ -62,7 +62,7 @@ class UnitBatteryTest extends TestCase
 
             'usertype' => 'User',
             'year' => 1994,
-            'gender' => 'Female',
+            'gender' => 'Woman',
             'profile_picture' => 'https://static.vecteezy.com/system/resources/previews/021/578/906/non_2x/positive-face-woman-upper-body-icon-illustration-vector.jpg',
             'country' => 'Spain'
         ]);
