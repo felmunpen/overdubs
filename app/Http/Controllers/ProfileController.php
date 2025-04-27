@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
+
 /***************/
 use Illuminate\Support\Facades\DB;
 /***************/
@@ -17,6 +18,9 @@ class ProfileController extends Controller
 {
     /**
      * Display the user's profile form.
+     * 
+     * @param \Illuminate\Http\Request $request 
+     * 
      */
     public function edit(Request $request): View
     {
@@ -27,6 +31,8 @@ class ProfileController extends Controller
 
     /**
      * Update the user's profile information.
+     * 
+     * @param \Illuminate\Http\Request $request Contains the updated profile information.
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
@@ -49,6 +55,8 @@ class ProfileController extends Controller
 
     /**
      * Delete the user's account.
+     * 
+     * @param \Illuminate\Http\Request $request 
      */
     public function destroy(Request $request): RedirectResponse
     {

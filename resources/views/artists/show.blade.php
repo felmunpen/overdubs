@@ -1,8 +1,8 @@
 @extends('layouts.common')
 
-@section('titulo', 'Inicio')
+@section('title', 'Overdubs')
 
-@section('contenido')
+@section('content')
 
     <main>
         <div style="display: flex; gap: 20px">

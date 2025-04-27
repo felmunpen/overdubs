@@ -5,24 +5,23 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class MessageController extends Controller
 {
-    //
-    public function send()
+    /**
+     * Sends a message to another user or admin.
+     * 
+     * @param \Illuminate\Http\Request $request Contains the text message and the identifier of the user who is going to receive it.
+     */
+    public function send_message(Request $request): RedirectResponse
     {
-        $user_id = $_POST['id'];
-        $text = $_POST['message'];
+        // $receiver_id = $_POST['receiver_id'];
+        // $text = $_POST['message'];
 
-        DB::table('messages')->insert(['user_id' => $user_id, 'text' => $text]);
-
-        return redirect()->back();
-    }
-
-    public function send_message()
-    {
-        $receiver_id = $_POST['receiver_id'];
-        $text = $_POST['message'];
+        $receiver_id = $request->post('receiver_id');
+        $text = $request->post('message');
 
         $receiver = DB::table('users')->where('id', '=', $receiver_id)->first();
 
@@ -33,7 +32,31 @@ class MessageController extends Controller
         return redirect()->back();
     }
 
-    public function delete_message($message_id)
+    /**
+     * Sends a report or suggestion to the admins.
+     * 
+     * @param \Illuminate\Http\Request $request Contains the text report.
+     * 
+     */
+    public function send_report(Request $request): RedirectResponse
+    {
+        $text = $_POST['message'];
+
+        $receiver = DB::table('users')->where('usertype', '=', 'Admin')->get();
+
+        if ((Auth::user()->usertype !== 'Artist') && $receiver->usertype !== 'Artist') {
+            DB::table('messages')->insert(['sender_id' => Auth::user()->id, 'receiver_id' => $receiver->id, 'text' => $text]);
+        }
+
+        return redirect()->back();
+    }
+
+    /**
+     * Deletes a message.
+     * 
+     * @param int $message_id The message identifier.
+     */
+    public function delete_message($message_id): RedirectResponse
     {
         DB::table('messages')->where('id', '=', $message_id)->delete();
 

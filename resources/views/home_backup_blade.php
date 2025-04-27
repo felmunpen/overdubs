@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <title>
-        @yield('titulo') Home
+        @yield('title') Home
     </title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
 
@@ -23,7 +23,7 @@
         SOS ALTO ADMIN, SABELO
     </nav>
 
-    @yield('contenido') -->
+    @yield('content') -->
 
     <div class="center_card">
         <h2>Home</h2>

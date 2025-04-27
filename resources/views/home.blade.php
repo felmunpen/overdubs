@@ -1,20 +1,22 @@
 @extends('layouts.intro')
 
-@section('titulo', 'Inicio')
+@section('title', 'Overdubs')
 
-@section('contenido')
+@section('content')
 
 
     <div id="login_box" class="static_card">
-        <h1 style="margin-bottom: 1.5vh;">Welcome.</h1>
-
+        <div style="margin-bottom: 1.5vh;">
+            <h1>Welcome to Overdubs.</h1>
+            <p>Find your favourite albums.<br>Find new music.<br>Rate and share them with more people with Overdubs.</p>
+        </div>
         <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />
 
         <div>
             @if (Route::has('login'))
                 @auth
-                    <a href="{{ url('/dashboard') }}">Inicio</a><br><br>
+                    <a href="{{ url('/dashboard') }}">Home</a><br><br>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <input type="submit" class="button_1" value="Log out">
@@ -29,7 +31,7 @@
                         <div>
                             <!-- <x-input-label for="email" value="Email:" /><br> -->
                             <x-text-input id="email" type="email" name="email" :value="old('email')" required
-                                autocomplete="username" placeholder="Email or username" class="input_text" style="width: 60%" />
+                                autocomplete="username" placeholder="Email" class="input_text" style="width: 60%" />
                             <x-input-error :messages="$errors->get('email')" class="mt-2" />
                         </div>
 
@@ -53,7 +55,6 @@
                                 </span>
                             </label>
                         </div>
-
                         <div>
                             <x-primary-button class="link_button round_button">
                                 {{ __('Log in') }}

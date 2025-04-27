@@ -1,15 +1,15 @@
 @extends('layouts.common')
 
-@section('titulo', 'felmunpen')
+@section('title', 'Overdubs')
 
-@section('contenido')
+@section('content')
 
-<main>
-    <div>
-        <h2>Perfect cracker</h2>
+    <main>
+        <div>
+            <h2>Perfect cracker</h2>
 
-    </div>
+        </div>
 
-</main>
+    </main>
 
 @endsection

@@ -5,29 +5,48 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 
 
 class ListController extends Controller
 {
-    //
-    public function created_list()
+    /**
+     * Creates a list with the name and picture provided in a form.
+     * 
+     * @param \Illuminate\Http\Request $request Contains two strings: the name and cover URL for the list.
+     * 
+     */
+    public function created_list(Request $request): RedirectResponse
     {
         $user_id = Auth()->user()->id;
-        $list_name = $_POST['list_name'];
-        $list_pic = $_POST['list_pic'];
-        if ($_POST['list_pic']) {
-            $list_pic = $_POST['list_pic'];
+
+        $list_name = $request->post('list_name');
+        // $list_pic = $request->post('list_pic');
+        if ($request->post('list_pic')) {
+            $list_pic = $request->post('list_pic');
         } else {
             $list_pic = 'https://isobarscience.com/wp-content/uploads/2020/09/default-profile-picture1.jpg';
         }
+
+        // $list_name = $_POST['list_name'];
+        // $list_pic = $_POST['list_pic'];
+        // if ($_POST['list_pic']) {
+        //     $list_pic = $_POST['list_pic'];
+        // } else {
+        //     $list_pic = 'https://isobarscience.com/wp-content/uploads/2020/09/default-profile-picture1.jpg';
+        // }
         DB::table('lists')->insert(['id' => NULL, 'user_id' => $user_id, 'name' => $list_name, 'list_pic' => $list_pic]);
 
-        // return view('profile.show_profile');
         return redirect()->back();
-
     }
 
-    public function show_list($id)
+    /**
+     * Shows a list.
+     * 
+     * @param int $id The list id.
+     */
+    public function show_list($id): View
     {
         $list = DB::table(table: 'lists')
             ->join('users', 'lists.user_id', '=', 'users.id')
@@ -40,7 +59,13 @@ class ListController extends Controller
             ->where('list_id', '=', $id)->get();
         return view('lists.show')->with('list', $list)->with('albums', $albums);
     }
-    public function edit_list($id)
+
+    /**
+     * Allows an user to edit one of its lists.
+     * 
+     * @param int $id The list id.
+     */
+    public function edit_list($id): RedirectResponse|View
     {
         $list_creator = DB::table(table: 'lists')->join('users', 'lists.user_id', '=', 'users.id')
             ->where('lists.id', '=', $id)
@@ -65,9 +90,16 @@ class ListController extends Controller
         }
     }
 
-    public function edited_list()
+    /**
+     * Commits the changes to the list.
+     * 
+     * @param \Illuminate\Http\Request $request Contains an integer with the list identifier.
+     * 
+     */
+    public function edited_list(Request $request): View
     {
-        $id = $_POST['list_id'];
+        // $id = $_POST['list_id'];
+        $id = $request->post('list_id');
 
         if ($_POST['list_name'] !== "") {
             $list_name = $_POST['list_name'];
@@ -92,18 +124,40 @@ class ListController extends Controller
 
     }
 
-    public function delete_list($id)
+    /**
+     * Allows an user to delete one of its lists.
+     * 
+     * @param int $id It is the list identifier.
+     */
+    public function delete_list($id): RedirectResponse
     {
-        $list = DB::table('lists')->where('id', '=', $id)->delete();
+        // DB::table('lists')->where('id', '=', $id)->delete();
 
+        $list = DB::table('lists')->where('id', '=', $id);
 
-        return redirect()->back();
+        if (Auth::user()->id === $list->first()->user_id) {
+            // DB::table('lists_elements')->where('id', '=', $element_id)->where('list_id', '=', $list_id)->delete();
+            $list->limit(1)->delete();
+        }
+
+        return redirect()->route('show_profile');
+
     }
 
-    public function add_to_list()
+    /**
+     * Allows an user to add an album to any its lists (previosly created).
+     * 
+     * @param \Illuminate\Http\Request $request Contains two integers: the list id and the album id.
+     *
+     */
+    public function add_to_list(Request $request): RedirectResponse
     {
-        $list_id = $_POST['list_id'];
-        $album_id = $_POST['album_id'];
+        // $list_id = $_POST['list_id'];
+        // $album_id = $_POST['album_id'];
+
+        $list_id = $request->post('list_id');
+        $album_id = $request->post('album_id');
+
         if (!DB::table('lists_elements')->where('list_id', $list_id)->where('album_id', $album_id)->first()) {
             DB::table('lists_elements')->insert(['id' => NULL, 'list_id' => $list_id, 'album_id' => $album_id]);
         }
@@ -111,7 +165,14 @@ class ListController extends Controller
 
     }
 
-    public function remove_from_list($list_id, $element_id)
+    /**
+     * Removes an album of a list.
+     * 
+     * @param int $list_id List identifier.
+     * 
+     * @param int $element_id Identifier of the album in the list.
+     */
+    public function remove_from_list($list_id, $element_id): RedirectResponse
     {
         $list = DB::table('lists')->where('id', '=', $list_id)->first();
 

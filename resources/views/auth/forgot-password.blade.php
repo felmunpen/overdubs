@@ -1,8 +1,8 @@
 @extends('layouts.intro')
 
-@section('titulo', 'Inicio')
+@section('title', 'Overdubs')
 
-@section('contenido')
+@section('content')
 
     <div id="login_box" class="static_card">
         <h1>Forgot your password?</h1>

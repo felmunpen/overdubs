@@ -1,23 +1,23 @@
 @extends('layouts.common')
 
-@section('titulo', 'Inicio')
+@section('title', 'Overdubs')
 
-@section('contenido')
+@section('content')
 
-<main>
-    <div>
-        <h2>Álbums</h2>
+    <main>
+        <div>
+            <h2>Álbums</h2>
 
-        <?php
+            <?php
 
-$albums = DB::table('albums')->get();
+    $albums = DB::table('albums')->get();
 
-foreach ($albums as $album) {
-    echo "Título: " . $album->name . " - <a href=\"show_album/" . $album->id . "\">Show album</a>" . ".<br><br>";
-}
+    foreach ($albums as $album) {
+        echo "Título: " . $album->name . " - <a href=\"show_album/" . $album->id . "\">Show album</a>" . ".<br><br>";
+    }
 
-                ?>
-    </div>
-</main>
+                        ?>
+        </div>
+    </main>
 
 @endsection

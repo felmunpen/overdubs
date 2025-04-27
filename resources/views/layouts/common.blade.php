@@ -1,27 +1,26 @@
-<!-- <html xmlns="http://www.w3.org/1999/xhtml" lang="es"> -->
 <html xmlns="https://www.w3.org/1999/xhtml" lang="es">
 
 
 <head>
     <meta charset="utf-8" />
     <title>
-        @yield('titulo')
+        @yield('title')
     </title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap"
         rel="stylesheet">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
 <body>
-    <!-- <header> -->
     <nav>
-        <div><a href={{ route('dashboard') }}>EQAPP</a></div>
+        <div><a href={{ route('dashboard') }}>overdubs</a></div>
 
         <form method="GET" action="{{ route('search') }}" id="search_bar">
             @csrf
@@ -37,6 +36,7 @@
             @if(Auth::user()->usertype === 'User')
                 <a href="#" class="dropbtn">
                     {{ Auth::user()->name }}
+
                 </a>
                 <div class="dropdown-content">
                     <a href={{ route('show_profile') }}>Profile</a>
@@ -74,33 +74,73 @@
                 </div>
             @endif
         </div>
-        <!-- <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <input type="submit" class="ms-3" value="Log out">
-        </form> -->
+
+        <div>
+            <span class="el_punto"></span>
+        </div>
+
+        <div id="report_form">
+            <form method="POST" action="{{ route('send_report') }}">
+                @csrf
+                ¿There's something you want us to know? Fill the box below with your ideas, reports or suggestions.
+                Thank you so much!
+                <input type="hidden" name="receiver_id" value="">
+                <textarea name="message" placeholder="Write your message." maxlength="300" rows="7"
+                    style="padding: 1vh; width: 100%;"></textarea>
+                <a style="float:left; margin-top: 1vh;" class="link_button" id="close">Close</a>
+
+                <input style="float:right; margin-top: 1vh;" type="submit" value="Send">
+            </form>
+        </div>
     </nav>
     <!-- </header> -->
 
-    @yield('contenido')
+    @yield('content')
 
-    <!-- <div id="about_this_project">
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-        industry's
-        standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to
-        make
-        a type specimen book. It has survived not only five centuries, but also the leap into electronic
-        typesetting,
-        remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets
-        containing
-        Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including
-        versions
-        of Lorem Ipsum.
-    </div> -->
     <footer>
 
-        <span>XXXX has been coded by Felipe Muñiz Peña. <a href="#">More about this project.</a></span>
+        <span>Overdubs has been coded by Felipe Muñiz Peña. <a id="send_message_link">Send us a message, notification,
+                or report.</a></span>
     </footer>
 
+
+    <script>
+        let send_message_link = document.getElementById('send_message_link');
+        let report_form = document.getElementById('report_form');
+        let close = document.getElementById('close');
+
+        send_message_link.onclick = function () {
+            if (report_form.style.opacity = '0') {
+                report_form.style.visibility = 'visible';
+                report_form.style.opacity = '1';
+            }
+        }
+
+        close.onclick = function () {
+            report_form.style.display = 'none';
+        }
+
+        $(document).ready(function () {
+
+            setInterval(() => {
+                $(".el_punto").css("background-color", "lime");
+                setTimeout(() => {
+                    $(".el_punto").css("background-color", "white");
+                }, 300)
+                setTimeout(() => {
+                    $(".el_punto").css("background-color", "yellowgreen");
+                }, 600)
+                setTimeout(() => {
+                    $(".el_punto").css("background-color", "white");
+                }, 1000)
+                setTimeout(() => {
+                    $(".el_punto").css("background-color", "lime");
+                }, 1400)
+            }, 3000)
+
+
+        });
+    </script>
 </body>
 
 </html>

@@ -35,75 +35,70 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    // public function store(Request $request): RedirectResponse
-    // {
-    //     $request->validate([
-    //         'name' => ['required', 'string', 'max:255'],
-    //         'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-    //         'password' => ['required', 'confirmed', Rules\Password::defaults()],
-    //     ]);
-
-    //     $user = User::create([
-    //         'name' => $request->name,
-    //         'email' => $request->email,
-    //         'password' => Hash::make($request->password),
-    //     ]);
-
-    //     event(new Registered($user));
-
-    //     Auth::login($user);
-
-    //     return redirect(route('dashboard', absolute: false));
-    // }
-
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
-
-        if ($request->year === "") {
-            $request->year = 'NULL';
-        }
-
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'usertype' => $request->usertype,
-            'year' => $request->year,
-            'gender' => $request->gender,
+            /*****/
+            'usertype' => ['required', 'string', 'in:Admin,Artist,User'],
+            'year' => ['nullable', 'integer'],
+            'gender' => ['required', 'string', 'in:Female,Male,Other'],
+            'profile_pic' => ['nullable', 'string', 'max:300'],
+            'country' => ['nullable', 'string', 'max:100']
         ]);
 
 
-        event(new Registered($user));
+        if (DB::table('users')->where('name', $request->name)->first()) {
+            return redirect()->back()->withErrors(
+                [
+                    'name' => 'That username has been taken.'
+                ]
+            );
+        } else {
 
-        $user_id = DB::table('users')->where('name', $request->name)->first()->id;
-        DB::table('users')->where('id', $user_id)->update([
-            'country' => $request->country,
-            'profile_pic' => $request->profile_pic
-        ]);
-
-        if ($request->usertype === 'Artist') {
-            $id = DB::table('users')->where('name', $request->name)->first()->id;
-            DB::table('messages')->insert([
-                'sender_id' => $id,
-                'receiver_id' => 1,
-                'text' => $request->info
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                /*****/
+                'usertype' => $request->usertype,
+                'year' => $request->year,
+                'gender' => $request->gender,
+                'profile_pic' => $request->profile_picture,
+                'country' => $request->country
             ]);
 
-            DB::table(table: 'artists')->insert([
-                'name' => $request->artist_name,
-                'registered' => 1,
-                'artist_pic' => $request->profile_pic,
-                'user_id' => $id
+
+            event(new Registered($user));
+
+            $user_id = DB::table('users')->where('name', $request->name)->first()->id;
+            DB::table('users')->where('id', $user_id)->update([
+                'country' => $request->country,
+                'profile_pic' => $request->profile_pic
             ]);
+
+            if ($request->usertype === 'Artist') {
+                $id = DB::table('users')->where('name', $request->name)->first()->id;
+                DB::table('messages')->insert([
+                    'sender_id' => $id,
+                    'receiver_id' => 1,
+                    'text' => $request->info
+                ]);
+
+                DB::table(table: 'artists')->insert([
+                    'name' => $request->artist_name,
+                    'registered' => 1,
+                    'artist_pic' => $request->profile_pic,
+                    'user_id' => $id
+                ]);
+            }
+
+            Auth::login($user);
+
+            return redirect(route('dashboard', absolute: false));
+
         }
-
-        Auth::login($user);
-
-        return redirect(route('dashboard', absolute: false));
     }
 }

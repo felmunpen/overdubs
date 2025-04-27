@@ -1,8 +1,8 @@
 @extends('layouts.intro')
 
-@section('titulo', 'Inicio')
+@section('title', 'Overdubs')
 
-@section('contenido')
+@section('content')
 
     <div id="artist_register_box" class="static_card">
         <h1>Are you a band or artist?</h1>
@@ -42,9 +42,9 @@
             <div>
                 <label for=" gender">If you want, select your gender:</label><br>
                 <select name="gender" id="gender" class="input_text" style="width: 60%;">
-                    <option value=" Female">Female</option>
+                    <option value="Female">Female</option>
                     <option value="Male">Male</option>
-                    <option value="-">-</option>
+                    <option value="Other">Other</option>
                 </select>
             </div>
 

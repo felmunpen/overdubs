@@ -353,9 +353,9 @@
                 <option selected="selected" value="<?php echo $user->gender?>">
                     <?php echo $user->gender?>
                 </option>
-                <option value="-">Other</option>
                 <option value="Female">Female</option>
                 <option value="Male">Male</option>
+                <option value="Other">Other</option>
             </select>
         </div>
 

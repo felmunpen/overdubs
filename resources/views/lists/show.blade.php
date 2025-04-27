@@ -1,8 +1,8 @@
 @extends('layouts.common')
 
-@section('titulo', 'Inicio')
+@section('title', 'Overdubs')
 
-@section('contenido')
+@section('content')
 
     <main>
         <div class="show_list_card">
@@ -23,23 +23,24 @@
                     </div>
                 </div>
             </div>
-            <div class="static_card" style="padding: 2vh 4vh; border: thin solid var(--intense);">
+            <div class="static_card"
+                style="padding: 2vh 4vh; border: thin solid var(--dark_grey); background-color: var(--clear_grey);">
                 <table class="list_table">
 
                     <tr>
-                        <th></th>
-                        <th>Cover</th>
-                        <th>Album</th>
-                        <th>Artist</th>
-                        @if(Auth::user()->id === $list->user_id)
-                            <th></th>
-                        @endif
+                        <th style="width:12%"></th>
+                        <th style="width:22%">Cover</th>
+                        <th style="width:22%">Album</th>
+                        <th style="width:22%">Artist</th>
+                        <th style="width:22%"></th>
                     </tr>
                     <?php $position = 1;
     foreach ($albums as $album) {
         echo "<tr><td>$position</td><td><img src=\"$album->album_cover\"></td><td><a href=\"/show_album/$album->album_id\">$album->album_name</a></td><td><a href=\"/show_artist/$album->artist_id\">$album->artist_name</a></td>";
         if (Auth::user()->id === $list->user_id) {
             echo "<td><a href=\"/remove_from_list/$list->id/$album->id\">Remove</a></td>";
+        } else {
+            echo "<td></td>";
         }
         echo "</tr>";
         ++$position;

@@ -1,8 +1,8 @@
 @extends('layouts.common')
 
-@section('titulo', 'Inicio')
+@section('title', 'Overdubs')
 
-@section('contenido')
+@section('content')
 
     <main>
         <h2>Edit album information:</h2><span style="text-align: right;">Go back.</span>

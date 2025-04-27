@@ -1,8 +1,8 @@
 @extends('layouts.common')
 
-@section('titulo', 'Inicio')
+@section('title', 'Overdubs')
 
-@section('contenido')
+@section('content')
 
     <main>
         @if (Auth()->user()->usertype === "User" || Auth()->user()->usertype === "Admin")

@@ -13,11 +13,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $file_path = resource_path('overdubs_seed.sql');
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        \DB::unprepared(
+            file_get_contents($file_path)
+        );
     }
 }

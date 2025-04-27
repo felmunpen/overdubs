@@ -1,19 +1,19 @@
 @extends('layouts.common')
 
-@section('titulo', 'Inicio')
+@section('title', 'Overdubs')
 
-@section('contenido')
+@section('content')
 
-<main>
-    <div>
-        <h2>vista auxiliar</h2>
+    <main>
+        <div>
+            <h2>vista auxiliar</h2>
 
-        <?php
+            <?php
 
-echo $album_coded;
+    echo $album_coded;
 
-        ?>
-    </div>
-</main>
+                ?>
+        </div>
+    </main>
 
 @endsection

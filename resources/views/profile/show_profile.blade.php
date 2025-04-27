@@ -1,16 +1,15 @@
 @extends('layouts.common')
 
-@section('titulo', 'felmunpen')
+@section('title', 'Overdubs')
 
-@section('contenido')
+@section('content')
 
     <main class="profile">
         <div class="profile_data column">
             <div><img src="<?php echo $user->profile_pic?>" alt="profile_pic" class="profile_pic"></div>
-            <!-- <div style="float: right"><a class="button_1" href="#">Edit</a></div> -->
-            <!-- <div style="float: right; margin:0 auto auto auto"> -->
-            <div>
 
+            <div>
+                <br>
             </div>
 
             <div>

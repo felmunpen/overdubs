@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <title>
-        @yield('titulo') - Ej7 Laravel
+        @yield('title') - Ej7 Laravel
     </title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
 
@@ -42,7 +42,7 @@
         <input type="submit" value="Buscar">
     </form>
 
-    @yield('contenido')
+    @yield('content')
 
     <footer>
         USER FOOTER -

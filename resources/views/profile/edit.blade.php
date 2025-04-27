@@ -1,8 +1,8 @@
 @extends('layouts.common')
 
-@section('titulo', 'felmunpen')
+@section('title', 'Overdubs')
 
-@section('contenido')
+@section('content')
 
     <main>
         <div>

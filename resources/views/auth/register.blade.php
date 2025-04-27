@@ -1,11 +1,17 @@
 @extends('layouts.intro')
 
-@section('titulo', 'Inicio')
+@section('title', 'Overdubs')
 
-@section('contenido')
+@section('content')
 
     <div id="register_box" class="static_card">
         <h1>Create your account.</h1>
+
+        <?php 
+                if (isset($alert)) {
+        echo $alert;
+    }
+            ?>
         <!-- Session Status -->
         <form method="POST" action="{{ route('register') }}">
             @csrf
@@ -33,9 +39,9 @@
             <div>
                 <label for="gender">Gender:</label><br>
                 <select name="gender" id="gender" class="input_text" style="width: 60%">
-                    <option value="-">Other</option>
                     <option value="Female">Female</option>
                     <option value="Male">Male</option>
+                    <option value="Other">Other</option>
                 </select>
             </div>
 
@@ -311,8 +317,8 @@
                 <!-- <label for="profile_pic">Profile picture URL:</label><br><input type="text" name="profile_pic" id="profile_pic" class="input_text"> -->
 
                 <!-- <x-input-label for="profile_pic" :value="__('Profile image URL:')" /><br>
-                        <x-text-input id="profile_pic" name="profile_pic" type="text" class="input_text" :value="old('profile_pic', )" style="width: 60%" />
-                        <x-input-error class="mt-2" :messages="$errors->get('profile_pic')" /> -->
+                                        <x-text-input id="profile_pic" name="profile_pic" type="text" class="input_text" :value="old('profile_pic', )" style="width: 60%" />
+                                        <x-input-error class="mt-2" :messages="$errors->get('profile_pic')" /> -->
 
                 <label for="profile_pic">Profile image URL:</label><br>
                 <input type="text" name="profile_pic" id="profile_pic" class="input_text" style="width: 60%;"

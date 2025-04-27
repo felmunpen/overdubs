@@ -1,8 +1,8 @@
 @extends('layouts.common')
 
-@section('titulo', 'Inicio')
+@section('title', 'Overdubs')
 
-@section('contenido')
+@section('content')
 
     <main>
         <form class="show_list_card" method="POST" action="{{ route('edited_list') }}">
@@ -10,11 +10,12 @@
             <input type="hidden" name="list_id" value="<?php echo $list->id ?>">
 
             <div>
-                <h3>
-                    <input type="text" class="input_text_slim" name="list_name" placeholder="<?php echo $list->name ?>">
+                <h3 style="padding-left: 0px; padding-right: 0px; ">
+                    <input style="width: 100%" type="text" class="input_text" name="list_name"
+                        value="<?php echo $list->name ?>">
                 </h3>
-                <input type="text" class="input_text_slim" name="list_pic_url" placeholder="List cover URL."
-                    style="margin-top: 0.2vh; margin-bottom: 1.2vh; width: 100%;">
+                <input type="text" class="input_text" name="list_pic_url"
+                    style="margin-top: 0.2vh; margin-bottom: 1.2vh; width: 100%;" value="<?php echo $list->list_pic ?>">
                 <div style="display: grid; grid-template-columns: 1fr 1fr; column-gap: 1vh;">
                     <img src="<?php echo $list->list_pic ?>" class="list_cover">
                     <div>
