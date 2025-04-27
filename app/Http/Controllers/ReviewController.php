@@ -20,44 +20,17 @@ class ReviewController extends AlbumController
      */
     public function send_review(Request $request): RedirectResponse
     {
-        //
-        $request->validate([
-            'user_id' => ['required', 'integer'],
-            'album_id' => ['required', 'integer'],
-            'title' => ['required', 'string', 'max:300'],
-            'text' => ['required', 'string', 'max:5000'],
-            'rating' => ['required', 'integer']
-        ]);
-
-        $review_test = Review::create([
-            'user_id' => $request->user_id,
-            'album_id' => $request->album_id,
-            'title' => $request->title,
-            'text' => $request->text,
-            'rating' => $request->rating,
-        ]);
-        //
-
 
         $user_id = Auth()->user()->id;
-        // $album_id = $_POST['album_id'];
-        // $rating = $_POST['rating'];
-
         $album_id = $request->post('album_id');
         $rating = $request->post('rating');
 
-        // if (isset($_POST['review'])) {
-        //     $review = $_POST['review'];
         if (isset($_POST['review'])) {
             $review = $request->post('review');
         } else {
             $review = '';
         }
 
-        // if (isset($_POST['title'])) {
-        //     $title = $_POST['title'];
-        // } elseif (isset($_POST['review'])) {
-        //     $title = substr($_POST['review'], 0, 10) . '...';
         if (isset($_POST['title'])) {
             $title = $request->post('title');
         } elseif (isset($_POST['review'])) {
@@ -71,15 +44,6 @@ class ReviewController extends AlbumController
         if (!DB::table('reviews')->where('user_id', $user_id)->where('album_id', $album_id)->first()) {
             DB::table('reviews')->insert(['id' => NULL, 'user_id' => Auth()->user()->id, 'title' => $title, 'album_id' => $album_id, 'text' => $review, 'rating' => $rating]);
             $review_alert = "Your review has been uploaded succesfully.";
-
-            // $sum = 0;
-            // $reviews = DB::table('reviews')->where('album_id', '=', $album_id)->get();
-            // $n = count($reviews);
-            // foreach ($reviews as $review) {
-            //     $sum += $review->rating;
-            // }
-            // $new_average_rating = intval($sum / $n);
-
             $new_average_rating = DB::table('reviews')->where('album_id', '=', $album_id)->average('rating');
             DB::table('albums')->where('id', $album_id)->update(['average_rating' => $new_average_rating]);
 
