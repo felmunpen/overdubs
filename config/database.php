@@ -86,12 +86,12 @@ return [
 
         'mariadb' => [
             'driver' => 'mariadb',
-            'url' => env('DB_URL'),
-            'host' => env('DB_HOST', 'uj4b5.h.filess.io'),
+            'url' => env('DB_URL', 'https://living-dee-felmunpenprojects-5e535f4c.koyeb.app/'),
+            'host' => env('DB_HOST', 'j4bue.h.filess.io'),
             'port' => env('DB_PORT', '61000'),
-            'database' => env('DB_DATABASE', 'overdubsv1_dangernest'),
-            'username' => env('DB_USERNAME', 'overdubsv1_dangernest'),
-            'password' => env('DB_PASSWORD', '6f2868c01562c8e2b47d2a3f01d2720bc399d675'),
+            'database' => env('DB_DATABASE', 'overdubs_declareddo'),
+            'username' => env('DB_USERNAME', 'overdubs_declareddo'),
+            'password' => env('DB_PASSWORD', '51e950dccdf20c8bd47a77cbd5461c0e995e2664'),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => env('DB_CHARSET', 'utf8mb4'),
             'collation' => env('DB_COLLATION', 'utf8mb4_unicode_ci'),
