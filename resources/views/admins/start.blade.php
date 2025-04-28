@@ -8,16 +8,18 @@
         <div>
             <h2><a href="{{ url('/dashboard') }}">Admin Control Panel</a></h2>
             <div style="display: grid; grid-template-columns: 1fr 1fr; column-gap: 2vh;">
-                <div style="display: grid; grid-template-rows: 1fr 1fr 1fr 1fr 1fr; row-gap: 2vh;">
+                <div style="display: grid; grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr; row-gap: 2vh;">
                     <div class="admin_card card"><a href="{{ route('show_users') }}">Users</a></div>
                     <div class="admin_card card"><a href="{{ route('show_albums') }}">Albums</a></div>
                     <div class="admin_card card"><a href="{{ route('show_artists') }}">Artists</a></div>
                     <div class="admin_card card"><a href="{{ route('show_reviews') }}">Reviews</a></div>
+                    <div class="admin_card card"><a href="{{ route('show_lists') }}">Lists</a></div>
+                    <div class="admin_card card"><a href="{{ route('show_messages') }}">Messages</a></div>
                     <div class="admin_card card"><a href="{{ route('data_report') }}">Data
                             Report</a>
                     </div>
                 </div>
-                <div id="definitions" class="admin_card card" style="text-align: justify; font-size: 10pt;">
+                <div id="definitions" class="admin_card static_card" style="text-align: justify; font-size: 10pt;">
                     This is the main panel for administrators. You can navigate throught the diferents sections through the
                     links on the left.<br><br>
                     · Users: shows all the users in Overdubs. As an admin, you can see their non-sensible data, such as
@@ -26,6 +28,9 @@
                     · Artists: contains all the artists included in Overdubs. From there, you can access to the artist
                     information and know which ones are registered as users.<br><br>
                     · Reviews: has information about all the reviews written by the users.<br><br>
+                    · Lists: contains all the lists created in Overdubs.<br><br>
+                    · Messages: has information about all the messages written between the users. Only for use if there are
+                    reports about bad behaviour or errors.<br><br>
                     · Data report: contains a report about the more relevant data gathered in the database, including plain
                     text and graphics.<br><br>
                 </div>

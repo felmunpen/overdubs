@@ -81,6 +81,27 @@ class AdminController extends Controller
         return view('admins.reviews')->with('reviews', $reviews);
     }
 
+    public function show_lists(): View
+    {
+        $lists = DB::table('lists')
+            ->join('users', 'lists.user_id', '=', 'users.id')
+            ->select('lists.*', 'users.name as user_name')
+            ->orderBy('id', 'DESC')->get();
+
+        return view('admins.lists')->with('lists', $lists);
+    }
+
+    public function show_messages(): View
+    {
+        $messages = DB::table('messages')
+            ->join('users as senders', 'messages.sender_id', '=', 'senders.id')
+            ->join('users as receivers', 'messages.receiver_id', '=', 'receivers.id')
+            ->select('messages.*', 'senders.name as sender_name', 'senders.id as sender_id', 'receivers.name as receiver_name', 'receivers.id as receiver_id')
+            ->orderBy('id', 'DESC')->get();
+
+        return view('admins.messages')->with('messages', $messages);
+    }
+
     /**
      * Shows a data report based on all the information stored in the database.
      */

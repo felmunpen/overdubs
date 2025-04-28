@@ -324,5 +324,15 @@ class AlbumController extends Controller
         return $this->show_album($id);
     }
 
+    public function delete_album($id): RedirectResponse
+    {
+        if (Auth::user()->usertype == 'Admin') {
+            DB::table('albums')->where('id', $id)->delete();
+            return redirect()->back();
+        } else {
+            return redirect()->back();
+        }
+    }
+
 }
 

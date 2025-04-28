@@ -82,7 +82,8 @@ class HomeController extends Controller
                 return redirect()->back();
             }
         } else {
-            return redirect()->back();
+            // return redirect()->back();
+            return view('home');
         }
     }
 }

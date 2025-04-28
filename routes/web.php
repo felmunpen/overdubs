@@ -13,9 +13,8 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\ListController;
 
-Route::get('/', function () {
-    return view('home');
-});
+
+Route::get('/', [HomeController::class, 'index']);
 
 Route::get('/dashboard', [HomeController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -30,12 +29,11 @@ Route::post('/inserted_album', [AlbumController::class, 'inserted_album'])->midd
 Route::post('/selected_album', [AlbumController::class, 'selected_album'])->middleware(['auth', 'verified'])->name('selected_album');
 Route::get('/edit_album/{id}', [AlbumController::class, 'edit_album'])->middleware(['auth', 'verified'])->name('edit_album');
 Route::post('/edited_album', [AlbumController::class, 'edited_album'])->middleware(['auth', 'verified'])->name('edited_album');
-Route::get('/delete_album/{id}', [AlbumController::class, 'delete_album'])->middleware(['auth', 'verified'])->name('delete_album');
-Route::post('/deleted_album', [AlbumController::class, 'deleted_album'])->middleware(['auth', 'verified'])->name('deleted_album');
+Route::post('/delete_album/{id}', [AlbumController::class, 'delete_album'])->middleware(['auth', 'verified'])->name('delete_album');
 
 Route::post('/send_review', [ReviewController::class, 'send_review'])->middleware(['auth', 'verified'])->name('send_review');
 Route::get('/show_review/{id}', [ReviewController::class, 'show_review'])->middleware(['auth', 'verified'])->name('show_review');
-Route::get('/delete_review/{id}', [ReviewController::class, 'delete_review'])->middleware(['auth', 'verified'])->name('delete_review');
+Route::post('/delete_review/{id}', [ReviewController::class, 'delete_review'])->middleware(['auth', 'verified'])->name('delete_review');
 
 Route::post('/created_list', [ListController::class, 'created_list'])->middleware(['auth', 'verified'])->name('created_list');
 Route::post('/add_to_list', [ListController::class, 'add_to_list'])->middleware(['auth', 'verified'])->name('add_to_list');
@@ -43,10 +41,10 @@ Route::get('/remove_from_list/{list_id}/{element_id}', [ListController::class, '
 Route::get('/show_list/{id}', [ListController::class, 'show_list'])->middleware(['auth', 'verified'])->name('show_list');
 Route::get('/edit_list/{id}', [ListController::class, 'edit_list'])->middleware(['auth', 'verified'])->name('edit_list');
 Route::post('/edited_list', [ListController::class, 'edited_list'])->middleware(['auth', 'verified'])->name('edited_list');
-Route::get('/delete_list/{id}', [ListController::class, 'delete_list'])->middleware(['auth', 'verified'])->name('delete_list');
+Route::post('/delete_list/{id}', [ListController::class, 'delete_list'])->middleware(['auth', 'verified'])->name('delete_list');
 
 Route::post('/send_message', [MessageController::class, 'send_message'])->middleware(['auth', 'verified'])->name('send_message');
-Route::get('/delete_message/{id}', [MessageController::class, 'delete_message'])->middleware(['auth', 'verified'])->name('delete_message');
+Route::post('/delete_message/{id}', [MessageController::class, 'delete_message'])->middleware(['auth', 'verified'])->name('delete_message');
 Route::post('/send_report', [MessageController::class, 'send_report'])->middleware(['auth', 'verified'])->name('send_report');
 
 Route::get('/show_user/{id}', [UserController::class, 'show_user'])->middleware(['auth', 'verified'])->name('show_user');
@@ -61,6 +59,8 @@ Route::get('/admin/show_users', [AdminController::class, 'show_users'])->middlew
 Route::get('/admin/show_albums', [AdminController::class, 'show_albums'])->middleware(['auth', 'admin.check'])->name('show_albums');
 Route::get('/admin/show_artists', [AdminController::class, 'show_artists'])->middleware(['auth', 'admin.check'])->name('show_artists');
 Route::get('/admin/show_reviews', [AdminController::class, 'show_reviews'])->middleware(['auth', 'admin.check'])->name('show_reviews');
+Route::get('/admin/show_lists', [AdminController::class, 'show_lists'])->middleware(['auth', 'admin.check'])->name('show_lists');
+Route::get('/admin/show_messages', [AdminController::class, 'show_messages'])->middleware(['auth', 'admin.check'])->name('show_messages');
 Route::get('/admin/data_report', [AdminController::class, 'data_report'])->middleware(['auth', 'admin.check'])->name('data_report');
 
 Route::get('/admin/users/block/{id}', [AdminController::class, 'block'])->middleware(['auth', 'admin.check'])->name('admin_block');

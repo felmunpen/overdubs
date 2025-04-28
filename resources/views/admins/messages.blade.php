@@ -6,32 +6,26 @@
 
     <main>
         <div style="margin:auto;"><input type="text" id="search" placeholder="Search..."></div>
-
-        <h2>Albums:</h2>
+        <h2>Messages:</h2>
         <table class="admin_table">
             <tr>
-                <th></th>
                 <th>Id</th>
-                <th>Name</th>
-                <th>Artist</th>
-                <th>Release Year</th>
-                <th></th>
-                <th></th>
+                <th>Sender</th>
+                <th>Receiver</th>
+                <th>Text</th>
+                <th>Delete</th>
             </tr>
 
             <?php
 
 
-    foreach ($albums as $album) {
+    foreach ($messages as $message) {
         echo "<tr>";
-        echo "<td><img src=\"" . $album->cover . "\"></td>";
-
-        echo "<td>" . $album->id . "</td>";
-        echo "<td><a href=\"/show_album/" . $album->id . "\">" . $album->name . "</a></td>";
-        echo "<td><a href=\"/show_artist/" . $album->artist_id . "\">" . $album->artist_name . "</td>";
-        echo "<td>" . $album->release_year . "</td>";
-        echo "<td><a href=\"/edit_album/" . $album->id . "\">Edit</a></td>";
-        echo '<td><form action="/delete_album/' . $album->id . '" method="POST" style="display:inline;">' . csrf_field() . '' . method_field('POST') . '<button type="submit" class="submit_camo">Delete</button></form></td>';
+        echo "<td>" . $message->id . "</td>";
+        echo "<td><a href=\"/show_user/" . $message->sender_id . "\">" . $message->sender_name . "</a></td>";
+        echo "<td><a href=\"/show_user/" . $message->receiver_id . "\">" . $message->receiver_name . "</td>";
+        echo "<td>" . $message->text . "</td>";
+        echo '<td><form action="/delete_message/' . $message->id . '" method="POST" style="display:inline;">' . csrf_field() . '' . method_field('POST') . '<button type="submit" class="submit_camo">Delete</button></form></td>';
         echo "</tr>";
     }?>
 

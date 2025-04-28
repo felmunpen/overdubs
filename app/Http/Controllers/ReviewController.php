@@ -90,12 +90,10 @@ class ReviewController extends AlbumController
     public function delete_review($id): RedirectResponse
     {
         $review = DB::table('reviews')->where('id', '=', $id)->first();
-
-        if (Auth::user()->id === $review->user_id) {
+        if (Auth::user()->id === $review->user_id || Auth::user()->usertype === 'Admin') {
             DB::table('reviews')->where('id', '=', $id)->delete();
 
         }
-
         return redirect()->back();
     }
 }

@@ -126,8 +126,7 @@
                     }
                     echo "</td>";
                     echo "<td><a href=\"/show_review/$review->id\" class=\"link_button\">Show</a></td>";
-                    echo "<td><a href=\"/delete_review/$review->id\" class=\"link_button\">Delete</a></td>";
-
+                    echo '<td><form action="/delete_review/' . $review->id . '" method="POST" style="display:inline;">' . csrf_field() . '' . method_field('POST') . '<button type="submit" class="link_button">Delete</button></form></td>';
                     echo "</tr>";
                 }?>
                         </table>
@@ -164,8 +163,7 @@
                     echo "<td><img src=\"$list->list_pic\" class=\"list_img\"></td>";
                     echo "<td><a href=\"/show_list/$list->id\">$list->name</a></td>";
                     echo "<td><a href=\"/edit_list/$list->id\" class=\"link_button\">Edit</a></td>";
-                    echo "<td><a href=\"/delete_list/$list->id\" class=\"link_button\">Delete</a></td>";
-
+                    echo '<td><form action="/delete_list/' . $list->id . '" method="POST" style="display:inline;">' . csrf_field() . '' . method_field('POST') . '<button type="submit" class="link_button">Delete</button></form></td>';
                     echo "</tr>";
                 }?>
                             </table>
@@ -228,23 +226,10 @@
                     echo "<td><img src=\"$message_from->profile_pic\" alt=\"user_pic\"></td>";
                     echo "<td>$message_from->user_name</td>";
                     echo "<td>$message_from->text<td>";
-                    echo "<td><a href=\"/delete_message/$message_from->id\">Delete</a></td>";
+                    echo '<td><form action="/delete_message/' . $message_from->id . '" method="POST" style="display:inline;">' . csrf_field() . '' . method_field('POST') . '<button type="submit" class="link_button">Delete</button></form></td>';
                     echo "</tr>";
                 }?>
                         </table>
-
-                        <?php    foreach ($messages_from as $message_from) {
-                    echo "<div class=\"static_card\" style=\"border: thin solid black; padding: 2vh;\">";
-                    echo "<div style=\"align-items: center; display: flex; justify-content: space-between; padding: 0vh 2vh;\" class=\"clear\">";
-                    echo "<img src=\"$message_from->profile_pic\" alt=\"user_pic\">";
-                    echo "<span>" . $message_from->user_name . "</span>";
-                    echo "<span>" . substr($message_from->created_at, 0, 10) . "</span>";
-                    echo "<a href=\"/delete_message/$message_from->id\" class=\"link_button\">Delete</a>";
-                    echo "</div>";
-
-                    echo "<p class=\"clearer\">" . $message_from->text . "<p>";
-                    echo "</div>";
-                }?>
                     </div>
 
                     <div id="Sent DMs" class="tabcontent static_card">
@@ -264,22 +249,11 @@
                     echo "<td><img src=\"$message_to->profile_pic\" alt=\"user_pic\"></td>";
                     echo "<td>$message_to->user_name</td>";
                     echo "<td>$message_to->text<td>";
-                    echo "<td><a href=\"/delete_message/$message_to->id\">Delete</a></td>";
+                    // echo "<td><a href=\"/delete_message/$message_to->id\">Delete</a></td>";
+                    echo '<td><form action="/delete_message/' . $message_to->id . '" method="POST" style="display:inline;">' . csrf_field() . '' . method_field('POST') . '<button type="submit" class="link_button">Delete</button></form></td>';
                     echo "</tr>";
                 }?>
                         </table><br><br>
-                        <?php    foreach ($messages_to as $message_to) {
-                    echo "<div class=\"static_card\" style=\"border: thin solid black; padding: 2vh;\">";
-                    echo "<div style=\"align-items: center; display: flex; justify-content: space-between; padding: 0vh 2vh;\" class=\"clear\">";
-                    echo "<img src=\"$message_to->profile_pic\" alt=\"user_pic\">";
-                    echo "<span>" . $message_to->user_name . "</span>";
-                    echo "<span>" . substr($message_to->created_at, 0, 10) . "</span>";
-                    echo "<a href=\"/delete_message/$message_to->id\" class=\"link_button\">Delete</a>";
-                    echo "</div>";
-
-                    echo "<p class=\"clearer\">" . $message_to->text . "<p>";
-                    echo "</div>";
-                }?>
 
                     </div>
             @endif

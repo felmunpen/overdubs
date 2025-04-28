@@ -6,35 +6,28 @@
 
     <main>
         <div style="margin:auto;"><input type="text" id="search" placeholder="Search..."></div>
-
-        <h2>Albums:</h2>
+        <h2>Lists:</h2>
         <table class="admin_table">
             <tr>
                 <th></th>
                 <th>Id</th>
                 <th>Name</th>
-                <th>Artist</th>
-                <th>Release Year</th>
-                <th></th>
-                <th></th>
+                <th>User</th>
+                <th>Show</th>
+                <th>Delete</th>
             </tr>
 
             <?php
-
-
-    foreach ($albums as $album) {
+    foreach ($lists as $list) {
         echo "<tr>";
-        echo "<td><img src=\"" . $album->cover . "\"></td>";
-
-        echo "<td>" . $album->id . "</td>";
-        echo "<td><a href=\"/show_album/" . $album->id . "\">" . $album->name . "</a></td>";
-        echo "<td><a href=\"/show_artist/" . $album->artist_id . "\">" . $album->artist_name . "</td>";
-        echo "<td>" . $album->release_year . "</td>";
-        echo "<td><a href=\"/edit_album/" . $album->id . "\">Edit</a></td>";
-        echo '<td><form action="/delete_album/' . $album->id . '" method="POST" style="display:inline;">' . csrf_field() . '' . method_field('POST') . '<button type="submit" class="submit_camo">Delete</button></form></td>';
+        echo "<td><img src=\"" . $list->list_pic . "\"></td>";
+        echo "<td>" . $list->id . "</td>";
+        echo "<td><a href=\"/show_list/" . $list->id . "\">" . $list->name . "</a></td>";
+        echo "<td><a href=\"/show_user/" . $list->user_id . "\">" . $list->user_name . "</td>";
+        echo "<td><a href=\"/show_list/" . $list->id . "\">Show</a></td>";
+        echo '<td><form action="/delete_list/' . $list->id . '" method="POST" style="display:inline;">' . csrf_field() . '' . method_field('POST') . '<button type="submit" class="submit_camo">Delete</button></form></td>';
         echo "</tr>";
     }?>
-
         </table>
 
         <script>
