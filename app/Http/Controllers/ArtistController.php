@@ -18,9 +18,7 @@ class ArtistController extends Controller
     public function update_description(Request $request): RedirectResponse
     {
         $id = Auth::user()->id;
-        // $description = $_POST['description'];
         $description = $request->post('description');
-
 
         DB::table('artists')->where('user_id', $id)->update(['description' => $description]);
         DB::table('users')->where('id', $id)->update(['bio' => $description]);
@@ -37,7 +35,6 @@ class ArtistController extends Controller
     public function update_info(Request $request): RedirectResponse
     {
         $id = Auth::user()->id;
-        // $info = $_POST['info'];
         $info = $request->post('info');
 
         DB::table('artists')->where('user_id', $id)->update(['info' => $info]);
@@ -54,7 +51,6 @@ class ArtistController extends Controller
         $artist = DB::table('artists')->where('id', $id)->first();
 
         $albums = DB::table('albums')
-            // ->join('artists', 'albums.artist_id', '=', $id)
             ->where('artist_id', $id)
             ->select('albums.*')
             ->orderBy('id', 'desc')->get();

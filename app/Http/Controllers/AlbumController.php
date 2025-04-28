@@ -20,9 +20,6 @@ class AlbumController extends Controller
      */
     public function search(Request $request): View
     {
-        // $search = $_GET['search'];
-        // $iterator = $_GET['iterator'];
-
         $search = $request->get('search');
         $iterator = $request->get('iterator');
 
@@ -58,9 +55,6 @@ class AlbumController extends Controller
      */
     public function search_by_tag(Request $request): View
     {
-        // $search = $_GET['tag_name'];
-        // $iterator = $_GET['iterator'];
-
         $search = $request->get('tag_name');
         $iterator = $request->get('iterator');
 
@@ -149,9 +143,6 @@ class AlbumController extends Controller
      */
     public function selected_album(Request $request): RedirectResponse|View
     {
-        $album__id = 1;
-        // $album_api_id = $_POST['id'];
-
         $album_api_id = $request->post('id');
 
         $curl = curl_init();
@@ -299,12 +290,6 @@ class AlbumController extends Controller
      */
     public function edited_album(Request $request): RedirectResponse|View
     {
-        // $id = $_POST['album_id'];
-        // $name = $_POST['album_name'];
-        // $release_year = $_POST['release_year'];
-        // $cover = $_POST['cover'];
-        // $songs = $_POST['songs'];
-
         $id = $request->post('album_id');
         $name = $request->post('album_name');
         $release_year = $request->post('release_year');
@@ -319,8 +304,6 @@ class AlbumController extends Controller
                 ->update(['name' => $song[1], 'length' => $song[2]]);
         }
 
-        // if ($_POST['new_genres'] !== "") {
-
         if ($request->post('new_genres') !== "") {
             $new_genres = $_POST['new_genres'];
             $new_genres = explode(", ", $new_genres);
@@ -329,8 +312,6 @@ class AlbumController extends Controller
                 DB::table('genres')->insert(['name' => $new_genre, 'album_id' => $id]);
             }
         }
-
-        // if (isset($_POST['delete_genres'])) {
 
         if (isset($_POST['delete_genres'])) {
             $delete_genres = $request->post('delete_genres');

@@ -22,7 +22,6 @@ class ListController extends Controller
         $user_id = Auth()->user()->id;
 
         $list_name = $request->post('list_name');
-        // $list_pic = $request->post('list_pic');
         if ($request->post('list_pic')) {
             $list_pic = $request->post('list_pic');
         } else {
@@ -91,7 +90,6 @@ class ListController extends Controller
      */
     public function edited_list(Request $request): View
     {
-        // $id = $_POST['list_id'];
         $id = $request->post('list_id');
 
         if ($_POST['list_name'] !== "") {
@@ -124,12 +122,9 @@ class ListController extends Controller
      */
     public function delete_list($id): RedirectResponse
     {
-        // DB::table('lists')->where('id', '=', $id)->delete();
-
         $list = DB::table('lists')->where('id', '=', $id);
 
         if (Auth::user()->id === $list->first()->user_id) {
-            // DB::table('lists_elements')->where('id', '=', $element_id)->where('list_id', '=', $list_id)->delete();
             $list->limit(1)->delete();
         }
 
@@ -145,9 +140,6 @@ class ListController extends Controller
      */
     public function add_to_list(Request $request): RedirectResponse
     {
-        // $list_id = $_POST['list_id'];
-        // $album_id = $_POST['album_id'];
-
         $list_id = $request->post('list_id');
         $album_id = $request->post('album_id');
 

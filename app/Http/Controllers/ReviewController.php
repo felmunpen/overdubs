@@ -74,14 +74,11 @@ class ReviewController extends AlbumController
         $recommended_albums = DB::table('albums')->limit(0);
 
         foreach ($genres as $genre) {
-            // $recom_albums = DB::table('albums')->leftJoin('genres', 'albums.id', '=', 'genres.album_id')->where('genres.name', $genre->name)->whereNot('albums.id', $album->id)->select('albums.*')->limit(5)->get();
             $recom_albums = DB::table('albums')->leftJoin('genres', 'albums.id', '=', 'genres.album_id')->where('genres.name', $genre->name)->whereNot('albums.id', $review->album_id)->select('albums.*')->limit(5);
             $recommended_albums = $recommended_albums->union($recom_albums);
         }
 
         $recommended_albums = $recommended_albums->inRandomOrder()->limit(5)->get();
-        // $recommended_albums = $recommended_albums->limit(5)->get();
-
         return view('reviews.show')->with('id', $id)->with('review', $review)->with('recommended_albums', $recommended_albums);
     }
 

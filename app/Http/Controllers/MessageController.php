@@ -17,9 +17,6 @@ class MessageController extends Controller
      */
     public function send_message(Request $request): RedirectResponse
     {
-        // $receiver_id = $_POST['receiver_id'];
-        // $text = $_POST['message'];
-
         $receiver_id = $request->post('receiver_id');
         $text = $request->post('message');
 
@@ -40,9 +37,9 @@ class MessageController extends Controller
      */
     public function send_report(Request $request): RedirectResponse
     {
-        $text = $_POST['message'];
+        $text = $request->post('message');
 
-        $receiver = DB::table('users')->where('usertype', '=', 'Admin')->get();
+        $receiver = DB::table('users')->where('usertype', '=', 'Admin')->first();
 
         if ((Auth::user()->usertype !== 'Artist') && $receiver->usertype !== 'Artist') {
             DB::table('messages')->insert(['sender_id' => Auth::user()->id, 'receiver_id' => $receiver->id, 'text' => $text]);

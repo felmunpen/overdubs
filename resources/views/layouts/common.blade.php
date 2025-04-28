@@ -20,12 +20,12 @@
 
 <body>
     <nav>
-        <div><a href={{ route('dashboard') }}>overdubs</a></div>
+        <div><a href={{ route('dashboard') }}>Overdubs</a></div>
 
         <form method="GET" action="{{ route('search') }}" id="search_bar">
             @csrf
             <input type="text" name="search" size="70">
-            <input type="submit" value="Buscar" class="link_button round_button"
+            <input type="submit" value="Search" class="link_button round_button"
                 style="padding-left: 1vh; padding-right: 1vh;">
             <input type="hidden" name="iterator" id="iterator" value="1">
 
@@ -64,7 +64,7 @@
                     {{ Auth::user()->name }}
                 </a>
                 <div class="dropdown-content">
-                    <a href={{ route('dashboard') }}>Dashboard</a>
+                    <a href={{ route('dashboard') }}>Admin panel</a>
                     <a href={{ route('show_profile') }}>Profile</a>
                     <a href={{ route('insert_album') }}>Insert album</a>
                     <form method="POST" action="{{ route('logout') }}" style="margin: 0px">

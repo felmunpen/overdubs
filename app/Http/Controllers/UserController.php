@@ -144,9 +144,6 @@ class UserController extends Controller
      */
     public function follow_or_unfollow(Request $request): RedirectResponse
     {
-        // $follow = $_POST['follow'];
-        // $following_id = $_POST['following_id'];
-
         $follow = $request->post('follow');
         $following_id = $request->post('following_id');
 
@@ -174,7 +171,6 @@ class UserController extends Controller
     public function update_bio(Request $request): RedirectResponse
     {
         $id = Auth::user()->id;
-        // $bio = $_POST['bio'];
         $bio = $request->post('bio');
 
         DB::table('users')->where('id', $id)->update(['bio' => $bio]);
