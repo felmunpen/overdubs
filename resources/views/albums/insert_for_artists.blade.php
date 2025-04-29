@@ -41,43 +41,40 @@
     </main>
 
     <script>
-        let iterator = -1;
+
+        let iterator = 0;
 
         const search_album = document.querySelector("#search_album");
         const show_more_results = document.querySelector("#show_more_results");
+        const suggested_albums_header = document.querySelector("#suggested_albums_header");
 
-
-        /*https://api.discogs.com/database/search?q=&type=release&release_title=blackening&artist=machine&key=YwWCSQkRamXqBJPQSsxs&secret=cnJdnXAwAaUzhVDqgkzzBKKuCHFnaDFU */
-
-        search_album.addEventListener("click", searchAPI, false);
-        show_more_results.addEventListener("click", searchAPI, false);
+        search_album.addEventListener("click", search, false);
+        show_more_results.addEventListener("click", more_results, false);
 
 
         search_album.addEventListener("click", showMoreResultsButton, false);
-        search_album.addEventListener("click", searchAPI, false);
+        search_album.addEventListener("click", search, false);
 
         function showMoreResultsButton() {
             show_more_results.style.visibility = "visible";
             show_more_results.style.opacity = "1";
-            show_more_results.addEventListener("click", searchAPI, false);
+            show_more_results.addEventListener("click", more_results, false);
         }
 
         const api_key = 'YwWCSQkRamXqBJPQSsxs';
 
         const api_secret = 'cnJdnXAwAaUzhVDqgkzzBKKuCHFnaDFU';
 
-        async function searchAPI() {
+        async function callAPI() {
+            spinner.style.display = 'block';
+            suggested_albums.innerHTML = '';
 
-            iterator += 1;
+            var album_name = document.querySelector("#album_name").value;
+            var artist_name = document.querySelector("#artist_name").value;
 
-            console.log(iterator);
+            console.log('Iterador (buscar más):' + iterator);
 
             document.getElementById('suggested_message').style.opacity = '1';
-
-            const album_name = document.querySelector("#album_name").value;
-            const artist_name = document.querySelector("#artist_name").value;
-
-            /*Formateo album_name para api*/
 
             var album_coded = album_name.toLowerCase();
             album_coded = album_coded.replaceAll(" ", "-");
@@ -89,7 +86,6 @@
 
             console.log("artist coded: " + artist_coded);
 
-            // const api_url_1 = `https://api.discogs.com/database/search?q=&type=release&release_title=${album_coded}&artist=${artist_coded}&key=${api_key}&secret=${api_secret}`;
             const api_url_1 = `https://api.discogs.com/database/search?q=&type=release&release_title=${album_coded}&artist=${artist_coded}&format=album&key=${api_key}&secret=${api_secret}`;
 
 
@@ -120,15 +116,19 @@
                 headers: {
                     'Access-Control-Allow-Origin': '*',
                 },
+
                 success: function (response) {
                     for (i = 0; i < 5; i++) {
                         ids_array.push(response['data']['results'][i + 5 * iterator]['id']);
                         covers_array.push(response['data']['results'][i + 5 * iterator]['cover_image']);
+                        console.log(response['data']['results'][i + 5 * iterator]['cover_image']);
                     }
                 },
                 error: function (xhr, status, error) {
                 }
             });
+
+            var results = ids_array.length;
 
             var api_url_2;
 
@@ -141,11 +141,11 @@
             var year;
             var genres;
 
-            for (i = 0; i < 5; i++) {
+            for (i = 0; i < ids_array.length; i++) {
+
                 api_url_2 = 'https://api.discogs.com/releases/' + ids_array[i];
-                // console.log('Control de id. Iteración: ' + i);
-                // console.log('ID: ' + ids_array[i]);
                 await fetch(api_url_2)
+
                     .then(response => {
                         if (!response.ok) {
                             throw new Error('Network response was not ok');
@@ -153,6 +153,8 @@
                         return response.json();
                     })
                     .then(data => {
+                        spinner.style.display = 'none';
+
                         id = data['id'];
                         artist = data['artists'][0]['name'];
                         title = data['title'];
@@ -167,17 +169,20 @@
                         }
                         genres_number = 0;
                         genres_number += data['styles'].length;
-                        for (j = 0; j < genres_number; j++) {
-                            genres.push(data['styles'][j])
+                        for (k = 0; k < genres_number; k++) {
+                            genres.push(data['styles'][k])
                         }
 
-                        // console.log(genres);
+                        spinner.style.display = 'none';
                     })
                     .catch(error => {
                         console.error('Error:', error);
-                    });
+                        spinner.style.display = 'none';
+                    })
+
 
                 resultado = '<div class="album_card suggested_album static_card"><div><img class="album_cover" src="' + covers_array[i] + '"><form style="text-align:center;" method="POST" action=" {{ route('selected_album') }} ">@csrf <input type="hidden" name="id" value="' + id + '" readonly><br><input type="submit" class="button_1" value="Insert new album in database."></form></div><div class="clear" style="padding: 5%;">Artist: ' + artist + '<br>Title: ' + title + '<br>Year: ' + year + '<br>Genres: ' + genres.join(", ") + '.<br><br>';
+
 
                 resultado = resultado + '<table class="tracklist"><tr><th>Track</th><th>Title</th><th>Duration</th>';
                 for (j = 0; j < tracklist.length; j++) {
@@ -187,12 +192,25 @@
 
                 resultado = resultado + '</div>';
 
-                // resultado = resultado + '</table><input type="button" class="copy_data" value="Copy data." id="' + i + '"></form></div>';
                 top_5_results = top_5_results + resultado;
-            }
+
+            };
+
+            $("#suggested_albums_header").html("Suggested albums: " + results + " results.")
             $("#suggested_albums").html(top_5_results);
 
         }
+
+        function search() {
+            iterator = 0;
+            callAPI();
+        }
+
+        function more_results() {
+            iterator += 1;
+            callAPI();
+        }
+
 
     </script>
 

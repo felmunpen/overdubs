@@ -44,15 +44,11 @@
 
     <script>
 
-        // let iterator = -1;
         let iterator = 0;
 
         const search_album = document.querySelector("#search_album");
         const show_more_results = document.querySelector("#show_more_results");
         const suggested_albums_header = document.querySelector("#suggested_albums_header");
-
-
-        /*https://api.discogs.com/database/search?q=&type=release&release_title=blackening&artist=machine&key=YwWCSQkRamXqBJPQSsxs&secret=cnJdnXAwAaUzhVDqgkzzBKKuCHFnaDFU */
 
         search_album.addEventListener("click", search, false);
         show_more_results.addEventListener("click", more_results, false);
@@ -71,26 +67,16 @@
 
         const api_secret = 'cnJdnXAwAaUzhVDqgkzzBKKuCHFnaDFU';
 
-
-        // var album_name = document.querySelector("#album_name").value;
-        // var artist_name = document.querySelector("#artist_name").value;
-
         async function callAPI() {
             spinner.style.display = 'block';
             suggested_albums.innerHTML = '';
 
-            // iterator += 1;
-            // iterator = 0;
             var album_name = document.querySelector("#album_name").value;
             var artist_name = document.querySelector("#artist_name").value;
 
             console.log('Iterador (buscar más):' + iterator);
 
             document.getElementById('suggested_message').style.opacity = '1';
-
-
-
-            /*Formateo album_name para api*/
 
             var album_coded = album_name.toLowerCase();
             album_coded = album_coded.replaceAll(" ", "-");
@@ -102,7 +88,6 @@
 
             console.log("artist coded: " + artist_coded);
 
-            // const api_url_1 = `https://api.discogs.com/database/search?q=&type=release&release_title=${album_coded}&artist=${artist_coded}&key=${api_key}&secret=${api_secret}`;
             const api_url_1 = `https://api.discogs.com/database/search?q=&type=release&release_title=${album_coded}&artist=${artist_coded}&format=album&key=${api_key}&secret=${api_secret}`;
 
 
@@ -133,7 +118,6 @@
                 headers: {
                     'Access-Control-Allow-Origin': '*',
                 },
-                //Habría que ver cuántos resultados caen y si son más de cinco que tope ahí, pero si es menos salen errores en los restantes
 
                 success: function (response) {
                     for (i = 0; i < 5; i++) {
@@ -159,12 +143,9 @@
             var year;
             var genres;
 
-            // for (i = 0; i < 5; i++) {
             for (i = 0; i < ids_array.length; i++) {
 
                 api_url_2 = 'https://api.discogs.com/releases/' + ids_array[i];
-                // console.log('Control de id. Iteración: ' + i);
-                // console.log('ID: ' + ids_array[i]);
                 await fetch(api_url_2)
 
                     .then(response => {
@@ -194,11 +175,9 @@
                             genres.push(data['styles'][k])
                         }
 
-                        // console.log(genres);
                         spinner.style.display = 'none';
                     })
                     .catch(error => {
-                        // suggested_albums.innerHTML = 'Error al cargar.';
                         console.error('Error:', error);
                         spinner.style.display = 'none';
                     })
@@ -215,7 +194,6 @@
 
                 resultado = resultado + '</div>';
 
-                // resultado = resultado + '</table><input type="button" class="copy_data" value="Copy data." id="' + i + '"></form></div>';
                 top_5_results = top_5_results + resultado;
 
             };
@@ -223,30 +201,16 @@
             $("#suggested_albums_header").html("Suggested albums: " + results + " results.")
             $("#suggested_albums").html(top_5_results);
 
-            /******************/
-            // var copy_data = document.querySelectorAll(".copy_data");
-
-            // for (var i = 0; i < copy_data.length; i++) {
-            //     copy_data[i].addEventListener("click", copyData, false);
-            // }
-
-            // function copyData() {
-            //     alert(this.id);
-            // }
-            /******************/
         }
 
         function search() {
             iterator = 0;
-
             callAPI();
         }
 
         function more_results() {
             iterator += 1;
-
             callAPI();
-
         }
 
 
