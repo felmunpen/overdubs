@@ -27,6 +27,13 @@
             </form>
         </div>
 
+        <div id="spinner" style="display: none;">
+            <div class="loader"></div>
+        </div>
+
+        <div id="datos"></div>
+
+
         <div id="suggested_message"
             style="opacity: 0; transition: opacity ease 0.5s; text-align: center; padding: 0.5vh 3vh; margin-top: 2vh;"
             class="static_card">
