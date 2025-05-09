@@ -5,8 +5,8 @@
 @section('content')
 
     <main>
-        <h2>Edit album information:</h2><span style="text-align: right;">Go back.</span>
-        <form class="show_album_card" method="POST" action="{{ route('edited_album') }}">
+        <h2>Edit album information:</h2>
+        <form class="show_album_card" method="POST" action="{{ route('edited_album') }}" style="padding-bottom: 5vh;">
             @csrf
             <div id="cover_column" class="column">
                 <div style="margin-bottom: 3vh;"><img src="<?php echo $album->cover ?>" class="album_cover"

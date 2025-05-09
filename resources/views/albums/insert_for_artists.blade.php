@@ -23,7 +23,7 @@
                 <input type="button" name="search_album" id="search_album" class="round_button" value="Search album"
                     style="">
                 <input type="button" name="search_album" id="show_more_results" class="round_button"
-                    value="Show more results" style="visibility: hidden; opacity: 0;">
+                    value="Show more results" style="">
             </form>
         </div>
 
@@ -37,7 +37,9 @@
         <div id="suggested_message"
             style="opacity: 0; transition: opacity ease 0.5s; text-align: center; padding: 0.5vh 3vh; margin-top: 2vh;"
             class="static_card">
-            <h2>Suggested albums:</h2>
+            <h2>Albums by
+                <?php echo $artist?>:
+            </h2>
 
         </div>
 
@@ -59,14 +61,7 @@
         show_more_results.addEventListener("click", more_results, false);
 
 
-        search_album.addEventListener("click", showMoreResultsButton, false);
         search_album.addEventListener("click", search, false);
-
-        function showMoreResultsButton() {
-            show_more_results.style.visibility = "visible";
-            show_more_results.style.opacity = "1";
-            show_more_results.addEventListener("click", more_results, false);
-        }
 
         const api_key = 'YwWCSQkRamXqBJPQSsxs';
 
@@ -203,7 +198,7 @@
 
             };
 
-            $("#suggested_albums_header").html("Suggested albums: " + results + " results.")
+            $("#suggested_albums_header").html("Albums by " + artist)
             $("#suggested_albums").html(top_5_results);
 
         }
@@ -217,6 +212,9 @@
             iterator += 1;
             callAPI();
         }
+
+
+        window.onload = more_results;
 
 
     </script>
