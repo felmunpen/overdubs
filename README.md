@@ -110,5 +110,5 @@ Pull requests are welcome! To contribute:
 
 - [Laravel](https://laravel.com/)
 - [Blade](https://laravel.com/docs/blade)
-- [MySQL](https://www.mysql.com/) or [PostgreSQL](https://www.postgresql.org/)
+- [MySQL](https://www.mysql.com/)
 
